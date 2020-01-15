@@ -38,3 +38,12 @@
 1. 사용자별 id를 부여하여 각 사용자를 구별한다.<br>
 2. 라우팅을 추가하여 각각의 채팅방을 구성한다(초기 화면에 채팅방 목록 보여주기).<br>
 3. RabbitMQ 공부하기.<br>
+<hr/>
+
+## 5. 참고 자료
+1. 메인 코드 : https://javacpro.tistory.com/72
+2. 자잘한 기능들 : https://velog.io/@kay/Vuejs%EB%A1%9C-%EC%B1%84%ED%8C%85%EC%95%B1-%EB%A7%8C%EB%93%A4%EA%B8%B0-6yjnj4u6r6#.srcviewlogin.vue
+3. 웹 소켓 : https://m.blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221486758281&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+4. vuetify 공식 문서 : https://vuetifyjs.com/ko/components/avatars
+5. ui 구조 : https://codepen.io/RayBenefield/pen/gKvagq?editors=1010
+6. card, chip group: https://vuetifyjs.com/ko/components/cards
