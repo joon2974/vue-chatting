@@ -18,6 +18,7 @@ io.on('connection', function (socket) {
     socket.on('chat', function(data){
         console.log(data, 'data from Client');
 
+        // client로 부터 받은 message를 id와 결합하여 object 형태로 저장 후 모든 사용자에게 broadcast 해준다.
         var rtnMessage = {
             id: data.id,
             message: data.message

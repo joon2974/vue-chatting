@@ -75,6 +75,8 @@ export default {
     },
     methods: {
         sendMessage(){
+            // send 버튼이나 엔터키를 누르면 입력이 없으면 동작하지 않고,
+            // 소켓에 채팅 id와 message를 object 형태로 전달한 후, 자신의 채팅 표시창에도 내용을 표시해준다.
             if(this.message.length === 0) return false;
             else{
                 this.$socket.emit('chat', {
@@ -89,17 +91,21 @@ export default {
         }
     },
     created() {
+        // DOM 생성 이전에 socket으로부터 받은 메시지를 데이터에 추가해준다.
+        // $socket은 main.js에서 선언했음.
         this.$socket.on('chat', (data) => {
             this.textarea.push(data)
         })
     },
     watch: {
         textarea(){
+            // 채팅 출력창을 watch하여 데이터가 갱신될 때마다 스크롤을 맨 아래로 내려준다.
             setTimeout(() => {
                 this.$refs.chats.$el.scrollTop = this.$refs.chats.$el.scrollHeight
             }, 0);
         },
         message(){
+            // 채팅 입력창에 엔터가 같이 들어가는 현상이 발생하여 엔터가 들어가 있으면 채팅 입력창을 비워준다.
             setTimeout(() => {
                 if(this.message === '\n'){
                     this.message = ''

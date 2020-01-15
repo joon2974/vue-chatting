@@ -7,6 +7,7 @@ import Directives from './plugins/directives'
 
 import io from 'socket.io-client'
 import vuetify from './plugins/vuetify';
+// 3001번 포트로 소켓 connection을 연다.
 const socket = io('http://13.209.40.0:3001');
 
 Vue.prototype.$socket = socket;
