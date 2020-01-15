@@ -29,7 +29,6 @@
 ## 3. 실행법
 - Backend: backend 폴더에 들어가서 'node server.js' 명령어를 통해 server.js 파일을 실행한다.<br>
  -> 3001번 포트에서 socket 통신을 대기한다.<br>
-<br>
 - Frontend: frontend 폴더에 들어가서 'npm run serve' 명령어를 실행한다.<br>
  -> localhost:8080으로 접속하라는 문구가 나오는데 코드 실행 환경이 AWS ec2환경이므로 인스턴스의 public address인 13.209.40.0:8080으로 접속해야 한다(추후 인스턴스를 껐다 키면 변경될 수 있음).<br>
   -> 같은 주소로 여러 디바이스가 접근 가능하며 채팅시 broadcast되어 모든 사용자가 채팅 내용을 볼 수 있다.<br>
