@@ -47,3 +47,10 @@
 4. vuetify 공식 문서 : https://vuetifyjs.com/ko/components/avatars
 5. ui 구조 : https://codepen.io/RayBenefield/pen/gKvagq?editors=1010
 6. card, chip group: https://vuetifyjs.com/ko/components/cards
+</hr>
+
+## 6. 2020/01/22 수정사항
+1. backend 디렉토리의 server.js 파일 수정하여 사용자별 방을 나누고 각 방별로 메세지를 수신할 수 있게 수정함.
+2. front단에서는 vuex, vue-router 도입하여 초기에 사용자 이름과 방 이름을 입력받고 해당 정보를 백단으로 넘겨주어 방을 설정하게 함.
+3. 사용자가 채팅창에 chip 혹은 card라고 입력하면 chip 리스트와 card 리스트를 메시지 표시창에 띄워주게 함.(클릭 했을 때의 이벤트는 아직 구현 안했음)
+- 향후 추가해야 할 사항: Server단에 rabbitMQ도입, Vuex관련 코드 리펙토링
