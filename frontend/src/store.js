@@ -4,9 +4,6 @@ import Vuex from 'vuex';
 //Vue랑 Vuex 연결
 Vue.use(Vuex);
 
-export const SET_USER = 'SET_USER'
-// export const NEW_MESSAGE = 'NEW_MESSAGE'
-
 export default new Vuex.Store({
     state: {
         chips: ['chip1', 'chip2', 'chip3', 'chip4', 'chip5', 'chip6', 'chip7', 'chip8', 'chip9', 'chip10'],
@@ -20,7 +17,7 @@ export default new Vuex.Store({
         users: []
     },
     mutations: {
-        [SET_USER](state, user){
+        setUser(state, user){
             state.user = user;
         },
         newMessage(state, msg){

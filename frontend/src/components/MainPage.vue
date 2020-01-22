@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import {SET_USER} from '../store'
+import store from '../store'
+import {mapMutations} from 'vuex'
 
 export default{
     head: {
@@ -56,6 +57,7 @@ export default{
         }
     },
     methods: {
+      ...mapMutations(['setUser']),
         submit(){
             if(this.$refs.form.validate()){
                 const user = {
@@ -64,10 +66,10 @@ export default{
                     id: this.$socket.id,
                 };
                 this.$socket.emit('createUser', user);
-                this.$store.commit(SET_USER, user);
+                store.commit('setUser', user);
                 this.$router.push('/chat');
             }
-        }
+        },
     },
 }
 </script>
