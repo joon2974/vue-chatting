@@ -1,17 +1,17 @@
 <template>
   <v-app>
-    <Chat></Chat>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import Chat from './components/Char.vue';
+// import MainPage from './components/MainPage.vue';
 
 export default {
   name: 'App',
 
   components: {
-    Chat,
+    // MainPage,
   },
 
   data: () => ({

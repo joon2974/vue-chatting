@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueMaterial from 'vue-material'
+import router from './router'
+import store from './store'
 import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/black-green-light.css'
 import Directives from './plugins/directives'
@@ -19,5 +21,7 @@ Vue.config.productionTip = false
 
 new Vue({
   vuetify,
+  router,
+  store,
   render: h => h(App)
 }).$mount('#app')
