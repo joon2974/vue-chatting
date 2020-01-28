@@ -1,18 +1,23 @@
 <template>
     <div class="Message">
+        <!-- User가 card라고 입력했을 때 -->
         <div v-if="message === 'card'">
             <card-component :cardList="cards"></card-component>
         </div>
+        <!-- User가 chip이라고 입력했을 때 -->
         <div v-else-if="message === 'chip'">
             <chip-component :chipList="chips"></chip-component>
         </div>
+        <!-- 그 외 일반적인 message입력 시 -->
         <div v-else>
+            <!-- 관리자 message일 때 -->
             <div v-if="admin === true">
                 <span>
                     <v-icon>mdi-bulletin-board</v-icon>
                 </span>
                 <span>{{message}}</span>
             </div>
+            <!-- 일반 User의 message일 때, 자신의 입력은 아바타가 오른쪽, 타인은 왼쪽에 위치 -->
             <v-list-item v-else>
                 <v-list-item-action v-show="owner === false">
                     <v-avatar color="indigo" size="30">

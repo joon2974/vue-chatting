@@ -2,6 +2,7 @@ var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+//User들의 집합(users), 관리자 알림을 다르게 표시하기 위해 key 코드로 admin 설정
 var users = [];
 const admin = 'ThisIsAdminKeyCode'
 
@@ -18,12 +19,17 @@ app.get('/', function(req,res){
 io.on('connection', function (socket) {
     console.log('Connect from Client: '+socket.id)
 
+    //MainPage.vue에서 Nickname과 Room Number를 입력하면 'createUser' emit -> UserList에 해당 유저의 정보 push
+    //User 정보: name, id, room을 포함
     socket.on('createUser', function(user){
         user.id = socket.id;
         users.push(user);
         console.log(users,"user pushed");
     })
 
+    //Chat.vue의 created에서 'joinRoom'을 emit -> 해당 socket을 room 정보에 join시키고
+    //해당 room에 속한 user들에게 신규 유저의 접속을 알림: 'updateUsers'는 클라이언트 측 Vuex의 users를 update
+    //'newMessage'는 client측의 messages를 update -> 채팅 내용이 화면에 나타남
     socket.on('joinRoom', user => {
         console.log("user joined: ", user.room)
         const userList = users.filter(v => v.room === user.room)
@@ -33,6 +39,9 @@ io.on('connection', function (socket) {
         socket.broadcast.to(user.room).emit('newMessage', {name: admin, msg: `${user.name} is joined on channel!`})
     })
 
+    //chatting을 입력했을 때 'chat' 이 emit됨 -> 해당 유저가 속한 방의 모든 user에게 메시지를 보냄
+    //정확히는 socket으로 newMessage를 전송하여 Vuex의 mutataion을 통해 state를 변경
+    //callback은 client측 코드를 참조(input창을 비우는 것)
     socket.on('chat', function(data, callback){
         const user = users.find(v => v.id === data.id);
         console.log(data.msg, 'data from Client');
@@ -47,6 +56,8 @@ io.on('connection', function (socket) {
         callback()
     });
 
+    //연결이 끊어졌을 때, Users를 갱신하고 해당 socket을 leave를 통해 제거
+    //해당 유저의 room에 속한 모든 user에게 갱신 사실을 알림.
     socket.on('disconnect', function() {
         const leaveUser = users.find(v => v.id === socket.id)
         if(leaveUser){
