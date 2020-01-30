@@ -74,3 +74,10 @@
     - RabbitMQ 서비스 구조: https://devahea.github.io/2019/04/30/AMQ-%EB%AA%A8%EB%8D%B8%EA%B3%BC-Exchange-Queue-Binding-%EC%97%90-%EB%8C%80%ED%95%B4/
     - RabbitMQ 서버: https://kamang-it.tistory.com/entry/AMQPRabbitMQRabbitMQ%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0%EC%99%80-%EC%84%A4%EC%B9%98%EB%B0%A9%EB%B2%95-1?category=799882, http://abh0518.net/tok/?p=384
 5. 각 코드에 대한 설명은 주석을 참조할 것
+<hr/>
+
+## 8. 2020/01/30 수정사항
+1. exchange를 전역으로 선언하여 1개의 public exchange를 공유하도록 변경
+2. routing key를 room name으로 주어 별도의 routing key설정 없이 room 이름만으로 queue라우팅을 가능하게 변경
+3. 위 과정에서 subscribe가 유저 수만큼 이루어져 동일 Message가 유저 수만큼 발송되는 오류가 발생
+    -> subscribe할 때, 받은 Message의 socket id가 본인의 socket id와 같은 경우에만 'newMessage'를 emit하도록 수정하여 해결!

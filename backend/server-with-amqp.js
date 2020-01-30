@@ -8,6 +8,7 @@ const ex = 'vue-web-socket';
 const admin = 'ThisIsAdminKeyCode';
 var users = [];
 var connlist = [];
+var public_exchange;
 
 //amqp connection error management, local의 rabbitMQ 서버를 키지 않으면 에러 발생
 rabbitMq.on('error', function(e){
@@ -29,9 +30,9 @@ rabbitMq.on('ready', function(){
 
             //message를 publish하기 위한 exchange를 생성
             try{
-                if(!socket.exchange){
-                    socket.exchange = rabbitMq.exchange(ex, {type: 'topic',autoDelete: false,durable: false,exclusive: false,confirm: true});
-                    console.log("exchange 생성", socket.exchange.name)
+                if(!public_exchange){
+                    public_exchange = rabbitMq.exchange(ex, {type: 'topic',autoDelete: false,durable: false,exclusive: false,confirm: true});
+                    console.log("exchange 생성", public_exchange.name)
                 }
             }catch(err){
                 console.log("Could not create connection to RabbitMQ. \nStack trace -->" + err.stack);
@@ -51,20 +52,23 @@ rabbitMq.on('ready', function(){
             io.to(user.room).emit('updateUsers', userList);
             socket.broadcast.to(user.room).emit('newMessage', {name: admin, msg: `${user.name} is joined on channel!`})
 
+
             //subscribe할 queue를 생성
             if(!socket.q){
-                socket.q = rabbitMq.queue(ex + user.id, {durable: true, autoDelete: false, exclusive: false}, 
+                socket.q = rabbitMq.queue(user.id, {durable: true, autoDelete: false, exclusive: false}, 
                     function(){
                         //exchange와 queue 바인딩(연결)
-                        socket.q.bind(socket.exchange, ex + user.id);
+                        socket.q.bind(public_exchange, user.room);
                         //publish 된 내용(rabbitMsg)를 받아 type에 따라 socket을 통해 메시지 전달
                         socket.q.subscribe(function(rabbitMsg){
-                            if(rabbitMsg.type === 'newMessage'){
-                                io.to(user.room).emit('newMessage', {name: rabbitMsg.name, id: rabbitMsg.id, msg: rabbitMsg.msg});
-                            }
-                            if(rabbitMsg.type === 'leaveMessage'){
-                                io.to(rabbitMsg.room).emit('newMessage', {name: rabbitMsg.name, msg: rabbitMsg.msg})
-                            }
+                            if(socket.q.name === rabbitMsg.id){
+                                if(rabbitMsg.type === 'newMessage'){
+                                    io.to(user.room).emit('newMessage', {name: rabbitMsg.name, id: rabbitMsg.id, msg: rabbitMsg.msg});
+                                }
+                                if(rabbitMsg.type === 'leaveMessage'){
+                                    io.to(rabbitMsg.room).emit('newMessage', {name: rabbitMsg.name, msg: rabbitMsg.msg})
+                                }
+                            }                           
                         }).addCallback(function(ok){
                             //connection list에 저장.
                             connlist[socket.id].ctag = ok.consumerTag;
@@ -80,7 +84,7 @@ rabbitMq.on('ready', function(){
 
             if(user){
                 //exchange를 통해 메시지를 publish -> subscribe할 때에는 {}의 내용을 rabbitMsg로 받게 된다.(상단 참조)
-                socket.exchange.publish(ex + user.id, {type: 'newMessage', name: user.name, id: data.id, msg: data.msg});
+                public_exchange.publish(user.room, {type: 'newMessage', name: user.name, id: data.id, msg: data.msg});
                 console.log('\nsend to room: ', user.room)
             }
 
@@ -102,7 +106,7 @@ rabbitMq.on('ready', function(){
 
                 //Client측으로 해당 유저의 접속 종료 정보를 전달
                 io.to(leaveUser.room).emit('updateUsers', users.filter(v => v.room === leaveUser.room))
-                socket.exchange.publish(ex + leaveUser.id, {type: 'leaveMessage', name: admin, room: leaveUser.room, msg: `${leaveUser.name} leaved chat room ${leaveUser.room}`});
+                public_exchange.publish(ex + leaveUser.room, {type: 'leaveMessage', name: admin, room: leaveUser.room, msg: `${leaveUser.name} leaved chat room ${leaveUser.room}`});
                 
                 //connection List에서 해당 연결 정보를 제거하고, subscribe 해제
                 try{
