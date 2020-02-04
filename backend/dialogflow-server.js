@@ -8,6 +8,7 @@ var users = [];
 const admin = 'ThisIsAdminKeyCode'
 const projectId = 'make-bike-assignment-reopsi'
 
+//dialogflow에 요청할 때 보낼 request 형식에 맞추어 object반환
 function makeRequest(sessionPath, message){
     return {
         session: sessionPath,
@@ -20,6 +21,7 @@ function makeRequest(sessionPath, message){
     }
 }
 
+//dialogflow에 요청하고 해당 결과값을 반환
 async function getResponse(sessionClient, request){
     const responses = await sessionClient.detectIntent(request);
     return await responses[0].queryResult;
