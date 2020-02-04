@@ -9,36 +9,36 @@
 ## 1.2. 기본 Intent
 	- 처음 Agent를 생성하면 기본적으로 설정되어 있는 Intent가 2 개 존재한다.
 ![default_intent](./imgs/default_intent.png)
-### 1. Default fallback Intent
-		- User가 입력한 메시지를 Dialogflow가 인식하지 못했을 때 실행되는 Intent.
-        - 보통 User의 재입력을 바라는 응답을 보낸다. 
-        - 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
+#### 1.2.1. Default fallback Intent
+	- User가 입력한 메시지를 Dialogflow가 인식하지 못했을 때 실행되는 Intent.
+  - 보통 User의 재입력을 바라는 응답을 보낸다. 
+  - 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
 ![modify_default](./imgs/modify_default.png)
-### 2. Default Welcome Intent
-		- User가 인사하면 인사말을 건네는 Intent.
-        - 기존에 설정된 Training phrases에 몇 가지 요소를 추가하였다(보통 training phrases는 10개 이상으로 하는 것이 좋다).
-        - 기존 응답을 수정하여 3개의 유저 응답을 유도하는 응답을 추가 후 SAVE.
+#### 1.2.2. Default Welcome Intent
+	- User가 인사하면 인사말을 건네는 Intent.
+  - 기존에 설정된 Training phrases에 몇 가지 요소를 추가하였다(보통 training phrases는 10개 이상으로 하는 것이 좋다).
+  - 기존 응답을 수정하여 3개의 유저 응답을 유도하는 응답을 추가 후 SAVE.
 ![modify_hello_req](./imgs/modify_hello_req.png)
 ![modify_hello_res](./imgs/modify_hello_res.png)
 
 ## 1.3. Custom Intent 추가
-	1. Hours Intent
-		- Default Intent들과 마찬가지고 User의 예상 Input과 챗봇이 대답해야할 응답을 설정해준다.
+#### 1.3.1. Hours Intent
+	- Default Intent들과 마찬가지고 User의 예상 Input과 챗봇이 대답해야할 응답을 설정해준다.
 ![hours_req](./imgs/hours_req.png)
 ![hours_res](./imgs/hours_res.png)
-		- 여기서 User가 입력한 Input에서 '언제'에 해당하는 값을 인식해야 하기 때문에 action and parameters에서 매개변수를 설정한다.
+	- 여기서 User가 입력한 Input에서 '언제'에 해당하는 값을 인식해야 하기 때문에 action and parameters에서 매개변수를 설정한다.
 ![hours_actions](./imgs/hours_actions.png)
-		- 매개변수는 training phrases를 입력할 때 시스템에서 기본적으로 제공하는 parameter들은 자동으로 인식을 하며, 의도와 맞지 않을 경우에는 해제하고 custom하여 설정할 수 있다.
+	- 매개변수는 training phrases를 입력할 때 시스템에서 기본적으로 제공하는 parameter들은 자동으로 인식을 하며, 의도와 맞지 않을 경우에는 해제하고 custom하여 설정할 수 있다.
 <hr/>
 
-	2. Make Appointment Intent
-		- 위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
+#### 1.3.2. Make Appointment Intent
+	- 위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
 ![appointment_req](./imgs/appointment_req.png)
 ![appointment_res](./imgs/appointment_res.png)
-		- 여기서는 '어떤 날짜'와 '몇 시'라는 parameter를 입력받아야 한다. 따라서 date와 time을 나누어 parameter로 설정하여 받도록 하였다.
+	- 여기서는 '어떤 날짜'와 '몇 시'라는 parameter를 입력받아야 한다. 따라서 date와 time을 나누어 parameter로 설정하여 받도록 하였다.
 ![appointment_action](./imgs/appointment_action.png)
-		- 예약을 하기 위해서는 날짜와 시간이 필수적이다. 따라서 action 탭에서 설정한 parameter 가장 왼쪽의 required 체크박스를 체크하면 해당 항목을 무조건 입력이 되어야 하는 항목이 된다.
-		- 이 때 각 항목을 입력하지 않으면 입력하도록 유도하는 Prompt라는 것을 사용할 수 있으며, prompt는 변수의 위, 아래 순서대로 적용된다(ex. 여기서는 date가 위에 있으므로 날짜에 대한 질문이 먼저 나옴).
+	- 예약을 하기 위해서는 날짜와 시간이 필수적이다. 따라서 action 탭에서 설정한 parameter 가장 왼쪽의 required 체크박스를 체크하면 해당 항목을 무조건 입력이 되어야 하는 항목이 된다.
+	- 이 때 각 항목을 입력하지 않으면 입력하도록 유도하는 Prompt라는 것을 사용할 수 있으며, prompt는 변수의 위, 아래 순서대로 적용된다(ex. 여기서는 date가 위에 있으므로 날짜에 대한 질문이 먼저 나옴).
 ![appointment_prompt](./imgs/appointment_prompt.png)
 
 ## 1.4. Inline editor를 통한 fulfillment
@@ -193,7 +193,9 @@ function getLocaleDateString(dateObj){
   return dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: timeZone });
 } -> index.js
 ```
+
 	- 위 index.js는 참고한 예제에서 calendarID, serviceAccount, timezone, timezoneOffset, agent.add의 내용 일부, convertParametersDate의 일부만을 환경에 맞게 변형하였다.
+
 <hr/>
 - 이후 Google Dialogflow에서 기본으로 제공되는 google assistant를 이용하여 테스트 해보면 실제 구글 캘린더에 일정이 등록되는 것을 볼 수 있다.
 - 참고 소스코드(구글 공식문서): https://cloud.google.com/dialogflow/docs/tutorials/build-an-agent/create-fulfillment-using-webhook
@@ -204,19 +206,19 @@ function getLocaleDateString(dateObj){
 	- 따라서 Inline editor가 아닌 기존의 채팅 서버에 dialogflow를 접목하여 챗봇 메시지를 UI에 띄워주는 방식을 사용해야 했다.
 
 ## 2.2. 구현 과정
-	1. Webhook 사용 설정: fulfillment 창에 들어가서 Webhook을 enable 해준다.
+#### 2.2.1. Webhook 사용 설정: fulfillment 창에 들어가서 Webhook을 enable 해준다.
 ![webhook](./imgs/webhook.png)
 
-	2. 서비스 계정 키 생성: GCP로 접속하여 보안 키를 json형식으로 생성한다.
+#### 2.2.2. 서비스 계정 키 생성: GCP로 접속하여 보안 키를 json형식으로 생성한다.
 ![create_key](./imgs/create_key.png)
 
-	3. 환경 변수 설정: 위 과정을 통해 다운받은 보안 키를 환경 변수에 등록한다.
+#### 2.2.3. 환경 변수 설정: 위 과정을 통해 다운받은 보안 키를 환경 변수에 등록한다.
 	-> **이 과정은 세션이 종료되면 다시 실행해야 한다** (터미널 다시 켜면 다시 해줘야 함)
 
 ![env_setting](./imgs/env_setting.png)
 <br>
 
-	4. 기존 서버 코드에 dialogflow call 부분 통합
+#### 2.2.4. 기존 서버 코드에 dialogflow call 부분 통합
 
 		- 4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
 ```javascript
