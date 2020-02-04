@@ -220,20 +220,20 @@ function getLocaleDateString(dateObj){
 
 #### 2.2.4. 기존 서버 코드에 dialogflow call 부분 통합
 
-		- 4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
+- 4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
 ```javascript
 const projectId = 'make-bike-assignment-reopsi';
 const sessionId = socket.id; //io.on('connection') 내부
 
 ```
 
-		- 4.2. 기존 코드에서 socket connection이 시작되면 session이 시작되도록 io.on('connection') 내부에서 sessionClient와 sessionPath를 선언한다.
+- 4.2. 기존 코드에서 socket connection이 시작되면 session이 시작되도록 io.on('connection') 내부에서 sessionClient와 sessionPath를 선언한다.
 ```javascript
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 ```
 
-		- 4.3. Dialogflow에 요청하기 위해서는 정해진 request 틀이 있으므로 해당 틀을 생성한다.
+- 4.3. Dialogflow에 요청하기 위해서는 정해진 request 틀이 있으므로 해당 틀을 생성한다.
 ```javascript
 function makeRequest(sessionPath, message){
     return {
@@ -250,7 +250,7 @@ function makeRequest(sessionPath, message){
 const query = makeRequest(sessionPath, data.msg);
 ```
 
-		- 4.4. 미리 생성한 sessionClient를 통해 Dialogflow에 요청을 전달한다. Node js는 기본적으로 비동기 동작하지만 여기서는 Dialogflow에서 응답이 돌아온 뒤에 logic이 수행되며 하므로 async function으로 함수를 생성한다. 반환값도 await로 기다렸다가 return.
+- 4.4. 미리 생성한 sessionClient를 통해 Dialogflow에 요청을 전달한다. Node js는 기본적으로 비동기 동작하지만 여기서는 Dialogflow에서 응답이 돌아온 뒤에 logic이 수행되며 하므로 async function으로 함수를 생성한다. 반환값도 await로 기다렸다가 return.
 ```javascript
 async function getResponse(sessionClient, request){
     const responses = await sessionClient.detectIntent(request);
@@ -258,7 +258,7 @@ async function getResponse(sessionClient, request){
 }
 ```
 
-		- 4.5. Dialogflow에서 넘어온 응답을 User에게 전송해준다.
+- 4.5. Dialogflow에서 넘어온 응답을 User에게 전송해준다.
 ```javascript
 getResponse(sessionClient, query)
         .then((result) => {
