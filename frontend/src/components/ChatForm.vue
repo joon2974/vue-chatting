@@ -24,12 +24,12 @@ export default {
     methods: {
         sendMessage(){
             if(this.message.length){
-                this.$socket.emit('chat',
-                 {msg: this.message, id: this.user.id},
-                  resetMessage => { this.message = ''})
+                //this.$socket.emit('chat',
+                 //{msg: this.message, id: this.user.id},
+                  //resetMessage => { this.message = ''})
                 //에러 발생 시 위 3줄 지우고 아래 2줄로 실행, 서버측에서도 callback()부분 삭제!
-                //this.$socket.emit('chat', {msg: this.message, id:this.user.id})
-                //this.message = ''
+                this.$socket.emit('chat', {msg: this.message, id:this.user.id})
+                this.message = ''
             }
         },
     },

@@ -81,3 +81,25 @@
 2. routing key를 room name으로 주어 별도의 routing key설정 없이 room 이름만으로 queue라우팅을 가능하게 변경
 3. 위 과정에서 subscribe가 유저 수만큼 이루어져 동일 Message가 유저 수만큼 발송되는 오류가 발생
     -> subscribe할 때, 받은 Message의 socket id가 본인의 socket id와 같은 경우에만 'newMessage'를 emit하도록 수정하여 해결!
+<hr/>
+
+## 9. 2020/02/04 수정사항
+1. backend 디렉토리 내부에 dialogflow-server.js를 추가하여 미리 구현해 놓은 구글 dialogflow 챗봇과의 통신을 구현
+2. 추가한 파일
+    - authkey.json: API 형식으로 dialogflow의 agent에 접근하려면 미리 보안 설정을 해야 한다. 따라서 해당 프로젝트의 서비스 보안 키를
+    생성하여 json형식으로 저장한 파일
+    -> 참고 url: https://cloud.google.com/docs/authentication/getting-started
+
+    - dialogflow-server.js: 구글 dialogflow의 agent와 통신하여 챗봇 내용을 전달해주기 위해 구현한 서버
+    -> 참고 url: https://www.npmjs.com/package/dialogflow#samples
+3. 실행 순서
+    1. terminal을 2개 실행한다.
+    2. frontend 디렉토리 내부에서 npm run serve 실행
+    3. backend 디렉토리 내부에서 export GOOGLE_APPLICATION_CREDENTIALS="/home/ubuntu/vue-web-socket/backend/authkey.json" 실행
+    4. 동일 디렉토리에서 node dialogflow-server 실행
+    5. 13.209.40.0:8080 으로 접속
+
+- 추가 작업해야할 사항
+    1. 챗봇에서 넘어온 메시지 UI적용
+    2. 채팅방 형식으로 할건지 1:1 챗봇 형식으로 할건지 정해서 broadcast범위 수정
+<hr/>
