@@ -210,6 +210,7 @@ function getLocaleDateString(dateObj){
 	3. 환경 변수 설정: 위 과정을 통해 다운받은 보안 키를 환경 변수에 등록한다.
 	-> **이 과정은 세션이 종료되면 다시 실행해야 한다** (터미널 다시 켜면 다시 해줘야 함)
 ![env_setting](./imgs/env_setting.png)
+<br>
 	4. 기존 서버 코드에 dialogflow call 부분 통합
 		4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
 ```javascript
