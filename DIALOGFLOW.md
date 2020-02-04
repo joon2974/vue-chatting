@@ -9,12 +9,12 @@
 ## 1.2. 기본 Intent
 	- 처음 Agent를 생성하면 기본적으로 설정되어 있는 Intent가 2 개 존재한다.
 ![default_intent](./imgs/default_intent.png)
-	1. Default fallback Intent
+### 1. Default fallback Intent
 		- User가 입력한 메시지를 Dialogflow가 인식하지 못했을 때 실행되는 Intent.
         - 보통 User의 재입력을 바라는 응답을 보낸다. 
         - 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
 ![modify_default](./imgs/modify_default.png)
-	2. Default Welcome Intent
+### 2. Default Welcome Intent
 		- User가 인사하면 인사말을 건네는 Intent.
         - 기존에 설정된 Training phrases에 몇 가지 요소를 추가하였다(보통 training phrases는 10개 이상으로 하는 것이 좋다).
         - 기존 응답을 수정하여 3개의 유저 응답을 유도하는 응답을 추가 후 SAVE.
