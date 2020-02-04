@@ -42,9 +42,9 @@
 ![appointment_prompt](./imgs/appointment_prompt.png)
 
 ## 1.4. Inline editor를 통한 fulfillment
-	- 위에서 생성한 챗봇 Agent를 배포하는 것에는 크게 2가지 방법이 있는데, 그 중 간단하게 dialogflow console에 내장되어 있는 inline editor를 통해 agent를 배포하는 방법이다.
-	- 이 방법은 Firebase의 Cloud function을 이용하여 Serverless로 동작한다.
-	- fulfillment하기 위해서 미리 만들어 두었던 Intent의 fulfillment를 허용해준다.
+	- 위에서 생성한 챗봇 Agent를 배포하는 것에는 크게 2가지 방법이 있는데, 그 중 간단하게 dialogflow console에 내장되어 있는 inline editor를 통해 agent를 배포하는 방법이다.<br>
+	- 이 방법은 Firebase의 Cloud function을 이용하여 Serverless로 동작한다.<br>
+	- fulfillment하기 위해서 미리 만들어 두었던 Intent의 fulfillment를 허용해준다.<br>
 ![able_fulfillment](./imgs/able_fulfillment.png)
 	- 이후 fulfillment 탭의 inline editor에서 package.json과 index.js를 다음과 같이 수정한다.
 ```json
@@ -271,6 +271,6 @@ getResponse(sessionClient, query)
 ```
 
 <hr/>
-- 참고 사이트: 구글 공식 사이트(인증): https://cloud.google.com/docs/authentication/getting-started
-- 참고 사이트: 테스트 코드(npm dialogflow 공식): https://www.npmjs.com/package/dialogflow#samples
+- 참고 사이트: 구글 공식 사이트(인증): https://cloud.google.com/docs/authentication/getting-started<br>
+- 참고 사이트: 테스트 코드(npm dialogflow 공식): https://www.npmjs.com/package/dialogflow#samples<br>
 - 참고 사이트: async await: https://developers.google.com/web/fundamentals/primers/async-functions?hl=ko
