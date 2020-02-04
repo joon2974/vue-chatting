@@ -30,6 +30,7 @@
 ![hours_actions](./imgs/hours_actions.png)
 		- 매개변수는 training phrases를 입력할 때 시스템에서 기본적으로 제공하는 parameter들은 자동으로 인식을 하며, 의도와 맞지 않을 경우에는 해제하고 custom하여 설정할 수 있다.
 <hr/>
+
 	2. Make Appointment Intent
 		- 위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
 ![appointment_req](./imgs/appointment_req.png)
@@ -205,25 +206,32 @@ function getLocaleDateString(dateObj){
 ## 2.2. 구현 과정
 	1. Webhook 사용 설정: fulfillment 창에 들어가서 Webhook을 enable 해준다.
 ![webhook](./imgs/webhook.png)
+
 	2. 서비스 계정 키 생성: GCP로 접속하여 보안 키를 json형식으로 생성한다.
 ![create_key](./imgs/create_key.png)
+
 	3. 환경 변수 설정: 위 과정을 통해 다운받은 보안 키를 환경 변수에 등록한다.
 	-> **이 과정은 세션이 종료되면 다시 실행해야 한다** (터미널 다시 켜면 다시 해줘야 함)
+
 ![env_setting](./imgs/env_setting.png)
 <br>
+
 	4. 기존 서버 코드에 dialogflow call 부분 통합
-		4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
+
+		- 4.1. Dialogflow에 요청을 보내려면 PorjectId와 SessionID가 필요하므로 미리 변수로 선언한다. ProjectID는 Dialogflow의 setting탭에 들어가면 바로 확인할 수 있고, SessionID는 Socket별로 session을 줄것이므로 socket의 id를 사용하였다.
 ```javascript
 const projectId = 'make-bike-assignment-reopsi';
 const sessionId = socket.id; //io.on('connection') 내부
 
 ```
-		4.2. 기존 코드에서 socket connection이 시작되면 session이 시작되도록 io.on('connection') 내부에서 sessionClient와 sessionPath를 선언한다.
+
+		- 4.2. 기존 코드에서 socket connection이 시작되면 session이 시작되도록 io.on('connection') 내부에서 sessionClient와 sessionPath를 선언한다.
 ```javascript
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 ```
-		4.3. Dialogflow에 요청하기 위해서는 정해진 request 틀이 있으므로 해당 틀을 생성한다.
+
+		- 4.3. Dialogflow에 요청하기 위해서는 정해진 request 틀이 있으므로 해당 틀을 생성한다.
 ```javascript
 function makeRequest(sessionPath, message){
     return {
@@ -239,14 +247,16 @@ function makeRequest(sessionPath, message){
 
 const query = makeRequest(sessionPath, data.msg);
 ```
-		4.4. 미리 생성한 sessionClient를 통해 Dialogflow에 요청을 전달한다. Node js는 기본적으로 비동기 동작하지만 여기서는 Dialogflow에서 응답이 돌아온 뒤에 logic이 수행되며 하므로 async function으로 함수를 생성한다. 반환값도 await로 기다렸다가 return.
+
+		- 4.4. 미리 생성한 sessionClient를 통해 Dialogflow에 요청을 전달한다. Node js는 기본적으로 비동기 동작하지만 여기서는 Dialogflow에서 응답이 돌아온 뒤에 logic이 수행되며 하므로 async function으로 함수를 생성한다. 반환값도 await로 기다렸다가 return.
 ```javascript
 async function getResponse(sessionClient, request){
     const responses = await sessionClient.detectIntent(request);
     return await responses[0].queryResult;
 }
 ```
-		4.5. Dialogflow에서 넘어온 응답을 User에게 전송해준다.
+
+		- 4.5. Dialogflow에서 넘어온 응답을 User에게 전송해준다.
 ```javascript
 getResponse(sessionClient, query)
         .then((result) => {
