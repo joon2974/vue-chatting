@@ -10,13 +10,15 @@
 	- 처음 Agent를 생성하면 기본적으로 설정되어 있는 Intent가 2 개 존재한다.
 ![default_intent](./imgs/default_intent.png)
 #### 1.2.1. Default fallback Intent
-- User가 입력한 메시지를 Dialogflow가 인식하지 못했을 때 실행되는 Intent.
-- 보통 User의 재입력을 바라는 응답을 보낸다. 
-- 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
+
+  - User가 입력한 메시지를 Dialogflow가 인식하지 못했을 때 실행되는 Intent.
+  - 보통 User의 재입력을 바라는 응답을 보낸다. 
+  - 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
 ![modify_default](./imgs/modify_default.png)
 
 #### 1.2.2. Default Welcome Intent
-	- User가 인사하면 인사말을 건네는 Intent.
+
+  - User가 인사하면 인사말을 건네는 Intent.
   - 기존에 설정된 Training phrases에 몇 가지 요소를 추가하였다(보통 training phrases는 10개 이상으로 하는 것이 좋다).
   - 기존 응답을 수정하여 3개의 유저 응답을 유도하는 응답을 추가 후 SAVE.
 ![modify_hello_req](./imgs/modify_hello_req.png)
@@ -35,14 +37,14 @@
 <hr/>
 
 #### 1.3.2. Make Appointment Intent
-	- 위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
+  -  위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
 ![appointment_req](./imgs/appointment_req.png)
 ![appointment_res](./imgs/appointment_res.png)
 
-	- 여기서는 '어떤 날짜'와 '몇 시'라는 parameter를 입력받아야 한다. 따라서 date와 time을 나누어 parameter로 설정하여 받도록 하였다.
+  -  여기서는 '어떤 날짜'와 '몇 시'라는 parameter를 입력받아야 한다. 따라서 date와 time을 나누어 parameter로 설정하여 받도록 하였다.
 ![appointment_action](./imgs/appointment_action.png)
 
-	- 예약을 하기 위해서는 날짜와 시간이 필수적이다. 따라서 action 탭에서 설정한 parameter 가장 왼쪽의 required 체크박스를 체크하면 해당 항목을 무조건 입력이 되어야 하는 항목이 된다.
+  -  예약을 하기 위해서는 날짜와 시간이 필수적이다. 따라서 action 탭에서 설정한 parameter 가장 왼쪽의 required 체크박스를 체크하면 해당 항목을 무조건 입력이 되어야 하는 항목이 된다.
 
   - 이 때 각 항목을 입력하지 않으면 입력하도록 유도하는 Prompt라는 것을 사용할 수 있으며, prompt는 변수의 위, 아래 순서대로 적용된다(ex. 여기서는 date가 위에 있으므로 날짜에 대한 질문이 먼저 나옴).
 
@@ -224,7 +226,7 @@ function getLocaleDateString(dateObj){
 ![create_key](./imgs/create_key.png)
 
 #### 2.2.3. 환경 변수 설정: 위 과정을 통해 다운받은 보안 키를 환경 변수에 등록한다.
-	-> **이 과정은 세션이 종료되면 다시 실행해야 한다** (터미널 다시 켜면 다시 해줘야 함)
+  -> **이 과정은 세션이 종료되면 다시 실행해야 한다** (터미널 다시 켜면 다시 해줘야 함)
 
 ![env_setting](./imgs/env_setting.png)
 <br>
