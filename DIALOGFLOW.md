@@ -38,10 +38,14 @@
 	- 위에서와 마찬가지로 User의 예상 Input과 응답을 추가해준다.
 ![appointment_req](./imgs/appointment_req.png)
 ![appointment_res](./imgs/appointment_res.png)
+
 	- 여기서는 '어떤 날짜'와 '몇 시'라는 parameter를 입력받아야 한다. 따라서 date와 time을 나누어 parameter로 설정하여 받도록 하였다.
 ![appointment_action](./imgs/appointment_action.png)
+
 	- 예약을 하기 위해서는 날짜와 시간이 필수적이다. 따라서 action 탭에서 설정한 parameter 가장 왼쪽의 required 체크박스를 체크하면 해당 항목을 무조건 입력이 되어야 하는 항목이 된다.
-	- 이 때 각 항목을 입력하지 않으면 입력하도록 유도하는 Prompt라는 것을 사용할 수 있으며, prompt는 변수의 위, 아래 순서대로 적용된다(ex. 여기서는 date가 위에 있으므로 날짜에 대한 질문이 먼저 나옴).
+
+  - 이 때 각 항목을 입력하지 않으면 입력하도록 유도하는 Prompt라는 것을 사용할 수 있으며, prompt는 변수의 위, 아래 순서대로 적용된다(ex. 여기서는 date가 위에 있으므로 날짜에 대한 질문이 먼저 나옴).
+
 ![appointment_prompt](./imgs/appointment_prompt.png)
 
 ## 1.4. Inline editor를 통한 fulfillment
@@ -49,7 +53,9 @@
 	- 이 방법은 Firebase의 Cloud function을 이용하여 Serverless로 동작한다.<br>
 	- fulfillment하기 위해서 미리 만들어 두었던 Intent의 fulfillment를 허용해준다.<br>
 ![able_fulfillment](./imgs/able_fulfillment.png)
+
 	- 이후 fulfillment 탭의 inline editor에서 package.json과 index.js를 다음과 같이 수정한다.
+
 ```json
 {
   "name": "DialogflowFirebaseWebhook",
@@ -200,7 +206,9 @@ function getLocaleDateString(dateObj){
 	- 위 index.js는 참고한 예제에서 calendarID, serviceAccount, timezone, timezoneOffset, agent.add의 내용 일부, convertParametersDate의 일부만을 환경에 맞게 변형하였다.
 
 <hr/>
+
 - 이후 Google Dialogflow에서 기본으로 제공되는 google assistant를 이용하여 테스트 해보면 실제 구글 캘린더에 일정이 등록되는 것을 볼 수 있다.
+
 - 참고 소스코드(구글 공식문서): https://cloud.google.com/dialogflow/docs/tutorials/build-an-agent/create-fulfillment-using-webhook
 
 # 2. connect dialogflow agent with Vue chatting UI
