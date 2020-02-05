@@ -14,6 +14,7 @@
 - 보통 User의 재입력을 바라는 응답을 보낸다. 
 - 기존 응답을 수정하고 3개의 응답 추가 후 SAVE
 ![modify_default](./imgs/modify_default.png)
+
 #### 1.2.2. Default Welcome Intent
 	- User가 인사하면 인사말을 건네는 Intent.
   - 기존에 설정된 Training phrases에 몇 가지 요소를 추가하였다(보통 training phrases는 10개 이상으로 하는 것이 좋다).
@@ -26,8 +27,10 @@
 	- Default Intent들과 마찬가지고 User의 예상 Input과 챗봇이 대답해야할 응답을 설정해준다.
 ![hours_req](./imgs/hours_req.png)
 ![hours_res](./imgs/hours_res.png)
+
 	- 여기서 User가 입력한 Input에서 '언제'에 해당하는 값을 인식해야 하기 때문에 action and parameters에서 매개변수를 설정한다.
 ![hours_actions](./imgs/hours_actions.png)
+
 	- 매개변수는 training phrases를 입력할 때 시스템에서 기본적으로 제공하는 parameter들은 자동으로 인식을 하며, 의도와 맞지 않을 경우에는 해제하고 custom하여 설정할 수 있다.
 <hr/>
 
