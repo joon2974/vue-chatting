@@ -19,7 +19,12 @@
             </div>
             <!-- 일반 User의 message일 때, 자신의 입력은 아바타가 오른쪽, 타인은 왼쪽에 위치 -->
             <v-list-item v-else>
-                <v-list-item-action v-show="owner === false">
+                 <v-list-item-action v-show="chatbot === true">
+                    <v-avatar color="#0277BD" size="30">
+                        <v-icon class="white--text">mdi-google-assistant</v-icon>
+                    </v-avatar>
+                </v-list-item-action>
+                <v-list-item-action v-show="owner === false && chatbot == false">
                     <v-avatar color="indigo" size="30">
                         <span class="white--text">{{name}}</span>
                     </v-avatar>
@@ -48,6 +53,7 @@ export default{
         message: String,
         admin: Boolean,
         owner: Boolean,
+        chatbot: Boolean
     },
     components:{
         'card-component': CardGroup,

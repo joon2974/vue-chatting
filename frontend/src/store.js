@@ -25,6 +25,7 @@ export default new Vuex.Store({
         },
         updateUsers(state, users){
             state.users = users
-        }
+        },
+        
     }
 })

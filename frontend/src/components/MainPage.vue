@@ -5,10 +5,11 @@
         <v-flex xs12 sm10 md10>
           <v-card>
             <v-card-title>
-              <h1>채팅방 들어가기</h1><br>
+              <h1>Welcome to OpenCareLab's Chatting Service!</h1><br>
             </v-card-title>
             <v-card-text>
-              <h5>채팅방 이름과 닉네임을 입력해주세요.</h5>
+              <h3>Please input your chat nickname and chat room's name.</h3>
+              <h5>If you want to use chat-bot service, input 'ChatBot' on room name.</h5>
             </v-card-text>
             <v-card-text>
               <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="submit">
@@ -25,7 +26,7 @@
                   label="Enter the room"
                   required
                 ></v-text-field>
-                <v-btn :disabled="!valid" color="primary" class="mr-4" type="submit">Submit</v-btn>
+                <v-btn :disabled="!valid" color="primary" class="mr-4" type="submit">Go to chat</v-btn>
               </v-form>
             </v-card-text>
           </v-card>

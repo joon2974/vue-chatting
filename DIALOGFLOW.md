@@ -287,3 +287,7 @@ getResponse(sessionClient, query)
 - 참고 사이트: 구글 공식 사이트(인증): https://cloud.google.com/docs/authentication/getting-started<br>
 - 참고 사이트: 테스트 코드(npm dialogflow 공식): https://www.npmjs.com/package/dialogflow#samples<br>
 - 참고 사이트: async await: https://developers.google.com/web/fundamentals/primers/async-functions?hl=ko
+
+# 추가 작업 사항(2020.02.05)
+## 1. Chatbot으로부터 받은 메시지를 다른 사용자와의 메시지와 구별되도록 UI 수정 -> frontend
+## 2. 기존의 채팅 서비스에서 채팅방 이름을 ChatBot으로 입력하고 들어가야만 챗봇과의 채팅이 가능하도록 수정 -> backend

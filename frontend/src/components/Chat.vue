@@ -4,8 +4,15 @@
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md6>
                     <v-card class="elevation-12" color="grey lighten-5">
+                        <div id="toolbar-line">
+                            <div id="circle-group">
+                                <v-avatar color="red" size="12" class="circle"></v-avatar>
+                                <v-avatar color="yellow" size="12" class="circle"></v-avatar>
+                                <v-avatar color="green" size="12" class="circle"></v-avatar>
+                            </div>
+                        </div>
                         <v-toolbar dark color="blue-grey darken-3">
-                            <v-toolbar-title flat color="blue-grey lighten-4--text">My Chat App</v-toolbar-title>
+                            <v-toolbar-title flat color="blue-grey lighten-4--text">{{user.room}}</v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-chip>{{user.name}}</v-chip>
                         </v-toolbar>
@@ -18,6 +25,7 @@
                                 :message="msg.msg"
                                 :owner="msg.id === user.id"
                                 :admin="msg.name === admin"
+                                :chatbot= "msg.name === chatBot"
                                 ></message>
                             </v-list>
                         </v-card-text>
@@ -48,7 +56,8 @@ export default {
     name: 'Chat',
     data(){
         return{
-            admin: 'ThisIsAdminKeyCode'
+            admin: 'ThisIsAdminKeyCode',
+            chatBot: 'ThisIsChatBotCode'
         }
     },
     components:{
@@ -97,5 +106,16 @@ export default {
 }
 .elevation-12{
     margin-top: 30px;
+}
+#toolbar-line{
+    height: 20px;
+    background-color: #263238;
+}
+#circle-group{
+    padding-left: 5px;
+}
+.circle{
+    margin-bottom: 3px;
+    margin-right: 4px;
 }
 </style>
